@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.sessionsecurtiy.user.model.dao.UserMapper">
+    <insert id="regist" parameterType="com.ohgiraffers.sessionsecurtiy.user.model.dto.SignupDTO">
+        insert into tbl_user( user_id,user_name,password,user_role)
+        values(#{userId},#{userName},#{userPass},#{role})
+    </insert>
+
+    <resultMap id="LoginUserMap" type="com.ohgiraffers.sessionsecurtiy.user.model.dto.LoginUserDTO">
+        <id property="userCode" column="user_no"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="userRole" column="user_role"/>
+    </resultMap>
+    <select id="findByUsername" resultMap="LoginUserMap" parameterType="string">
+        select
+            *
+        from
+            tbl_user
+        where
+            user_id = #{username}
+    </select>
+
+</mapper>
